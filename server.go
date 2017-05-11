@@ -6,29 +6,38 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/FINTProsjektet/fint-tech-docs-service/config"
 	"github.com/FINTProsjektet/fint-tech-docs-service/services"
 	"github.com/FINTProsjektet/fint-tech-docs-service/types"
+	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
 	"github.com/google/go-github/github"
 	"github.com/gorilla/mux"
 	"gopkg.in/rjz/githubhook.v0"
 )
 
+func errorResponse(e error, w http.ResponseWriter) {
+	w.WriteHeader(http.StatusBadRequest)
+	em := fmt.Sprintf("Failed processing hook: %s", e)
+	log.Print(em)
+	json.NewEncoder(w).Encode(types.ErrorResponse{Message: em})
+	return
+}
 func gitHubWebHook(w http.ResponseWriter, req *http.Request) {
-	secret := []byte("topsecret")
-	hook, err := githubhook.Parse(secret, req)
+	c := config.Get()
+	secret := []byte(c.GitHubSecret)
+
 	w.Header().Set("Content-Type", "application/json")
 
+	hook, err := githubhook.Parse(secret, req)
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		em := fmt.Sprintf("Failed processing hook: %s", err)
-		log.Print(em)
-		json.NewEncoder(w).Encode(types.ErrorResponse{Message: em})
-		return
+		errorResponse(err, w)
 	}
+
 	evt := github.PushEvent{}
 	if err := json.Unmarshal(hook.Payload, &evt); err != nil {
-		fmt.Println("Invalid JSON?", err)
+		errorResponse(err, w)
 	}
+
 	mongo := svc.NewMongo()
 	defer mongo.Close()
 	mongo.Save(evt.Repo)
@@ -37,25 +46,31 @@ func gitHubWebHook(w http.ResponseWriter, req *http.Request) {
 }
 
 func getAllProjects(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
 	mongo := svc.NewMongo()
 	defer mongo.Close()
 
 	p := mongo.FindAll()
-	log.Print(p)
 
-	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(p)
 }
 
 func main() {
+	c := config.Get()
+	log.Println(&c)
+	utils.CleanWorkspace()
+
 	router := mux.NewRouter()
 	router.HandleFunc("/webhook", gitHubWebHook).Methods("POST")
 	router.HandleFunc("/api/projects", getAllProjects).Methods("GET")
+	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("./public"))))
 
 	b := svc.NewBuilder()
 	go b.Start()
 
-	log.Fatal(http.ListenAndServe(":12345", router))
+	log.Printf("FINT tech docs service is listening on port %s", c.Port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", c.Port), router))
 
 }

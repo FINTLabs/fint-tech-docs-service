@@ -11,16 +11,12 @@ import (
 	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
 )
 
-func buildPath(name string) string {
-	return "./workspace/" + name + "/"
-}
-
 // BuildJavaDocs ...
 func BuildJavaDocs(p *types.Project) error {
 	g := NewGit()
 
 	g.Clone(p)
-	os.Chdir(buildPath(p.Name))
+	os.Chdir(utils.BuildPath(p.Name))
 
 	out, err := exec.Command("./gradlew", "javadoc").CombinedOutput()
 	if err != nil {
@@ -32,7 +28,7 @@ func BuildJavaDocs(p *types.Project) error {
 
 	d := fmt.Sprintf("../../public/%s", p.Name)
 	os.RemoveAll(d)
-	eh.CopyDir("./javadocs", d)
+	utils.CopyDir("./javadocs", d)
 	os.Chdir("../../")
 	return nil
 }

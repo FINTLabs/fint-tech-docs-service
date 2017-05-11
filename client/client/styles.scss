@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "variables";
+@import "styles/material.setup.scss";
+@import "styles/document";
+@import "styles/table";
+//@import "styles/svg";
+body {
+    margin: 10;
+    font-family: Roboto, sans-serif;
+}
+
+md-card {
+    max-width: 90%;
+    margin: 2em auto;
+    //text-align: center;
+}
+
+md-toolbar-row {
+    justify-content: space-between;
+}
+
+.done {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+}
+
+button {
+    min-height: 23px !important;
+    min-width: 46px !important;
+    font-size: 12px !important;
+    line-height: 0px;
+}
+
+md-card-title-group {
+    border-bottom: 1px solid #ddd;
+}
+
+ng2-fa {
+    color: #000;
+    //text-shadow: 1px 1px 1px #ccc;
+    //font-size: 1.5em;
+}

@@ -1,0 +1,125 @@
+@import "variables";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+$body-background: #fcfcfc;
+html {
+    background-color: $body-background;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: $text-color;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: darken($text-color, 5%);
+}
+
+h1 {
+    font-size: 150%;
+}
+
+h2 {
+    font-size: 130%;
+}
+
+h3 {
+    font-size: 120%;
+}
+
+h4 {
+    font-size: 110%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+.highlight {
+    background: yellow;
+}
+
+.success {
+    color: $success;
+}
+
+.warning {
+    color: $warning;
+}
+
+.status fint-fa {
+    border: 1px solid;
+    border-radius: 50%;
+    &.success {
+        border-color: darken($success, 20%);
+    }
+    &.warning {
+        border-color: darken($warning, 20%);
+    }
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.pull-right {
+    float: right;
+}
+
+.pull-left {
+    float: left;
+}
+
+.anchor {
+    &:before {
+        content: '';
+        display: block;
+        height: 45px;
+        margin-top: -45px;
+    }
+}
+
+.md-spinner-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 100px;
+    background: rgba($body-background, 0.7);
+}
+
+ul.unstyled {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+        padding: 0;
+    }
+}
+
+ul.horisontal li {
+    float: left;
+}
+
+input,
+select,
+textarea,
+button {
+    &[disabled] {
+        cursor: not-allowed;
+        background-color: #ddd !important;
+        color: #888 !important;
+    }
+}

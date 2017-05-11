@@ -7,6 +7,7 @@ import (
 	git "gopkg.in/src-d/go-git.v4"
 
 	"github.com/FINTProsjektet/fint-tech-docs-service/types"
+	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
 )
 
 // Git ...
@@ -21,7 +22,7 @@ func NewGit() *Git {
 func (g *Git) Clone(p *types.Project) {
 
 	log.Printf("Cloning repository %s", p.Name)
-	r, err := git.PlainClone(buildPath(p.Name), false, &git.CloneOptions{
+	r, err := git.PlainClone(utils.BuildPath(p.Name), false, &git.CloneOptions{
 		URL:      p.CloneURL,
 		Progress: os.Stdout,
 	})
@@ -31,10 +32,3 @@ func (g *Git) Clone(p *types.Project) {
 		log.Printf("Failed to clone %s", p.CloneURL)
 	}
 }
-
-/*
-	err = BuildJavaDocs(evt.Repo.GetName())
-	if err != nil {
-		log.Fatal("Unable to build JavaDocs")
-	}
-*/

@@ -1,27 +1,26 @@
 package svc
 
 import (
-	"fmt"
-	"os"
+	"log"
 
+	"github.com/FINTProsjektet/fint-tech-docs-service/config"
+	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
 	"github.com/jasonlvhit/gocron"
 )
 
 // Builder ....
 type Builder struct{}
 
-func taskWithParams(a int, b string) {
-	fmt.Println(a, b)
-}
-
 func buildDocs() {
 	mongo := NewMongo()
 	defer mongo.Close()
 
-	os.RemoveAll("./workspace")
+	utils.CleanWorkspace()
+
+	log.Println("Start building documentation")
 	ps := mongo.FindDirty()
 	for i := 0; i < len(ps); i++ {
-		fmt.Printf("Building docs for %s\n", ps[i].Name)
+		log.Printf("Building docs for %s\n", ps[i].Name)
 		BuildJavaDocs(&ps[i])
 		mongo.Clean(&ps[i])
 	}
@@ -35,6 +34,9 @@ func NewBuilder() *Builder {
 
 // Start ...
 func (b *Builder) Start() {
-	gocron.Every(5).Seconds().Do(buildDocs)
+	log.Println("Starting documentation builder")
+
+	c := config.Get()
+	gocron.Every(c.BuildInternval).Seconds().Do(buildDocs)
 	<-gocron.Start()
 }

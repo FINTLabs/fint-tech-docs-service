@@ -3,8 +3,9 @@ package svc
 import (
 	"log"
 
+	"github.com/FINTProsjektet/fint-tech-docs-service/config"
+	"github.com/FINTProsjektet/fint-tech-docs-service/errors"
 	"github.com/FINTProsjektet/fint-tech-docs-service/types"
-	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
 	"github.com/google/go-github/github"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -19,10 +20,12 @@ type Mongo struct {
 
 // NewMongo creates a new MongoService
 func NewMongo() *Mongo {
+	c := config.Get()
+
 	m := &Mongo{}
 	var err error
-	m.session, err = mgo.Dial("localhost")
-	if eh.ErrorHandler(err) {
+	m.session, err = mgo.Dial(c.DBHost)
+	if errors.Handler("Dialing Mongo", err) {
 		m.session.SetMode(mgo.Monotonic, true)
 		m.collection = m.session.DB("docs").C("project")
 		return m
@@ -33,7 +36,6 @@ func NewMongo() *Mongo {
 
 // Close closes the session to Mongo
 func (m *Mongo) Close() {
-	log.Println("Closing Mongo session.")
 	m.session.Close()
 }
 
@@ -43,7 +45,7 @@ func (m *Mongo) FindAll() []types.Project {
 	q := m.collection.Find(bson.M{})
 	err := q.All(&p)
 
-	if eh.ErrorHandler(err) {
+	if errors.Handler("FindAll prosjects", err) {
 		return p
 	}
 
@@ -57,7 +59,7 @@ func (m *Mongo) FindDirty() []types.Project {
 	q := m.collection.Find(bson.M{"dirty": true})
 	err := q.All(&p)
 
-	if eh.ErrorHandler(err) {
+	if errors.Handler("Find Dirty", err) {
 		return p
 	}
 
@@ -85,7 +87,7 @@ func (m *Mongo) Save(r *github.PushEventRepository) {
 		err = m.collection.Insert(p)
 	}
 
-	eh.ErrorHandler(err)
+	errors.Handler("Saving project", err)
 }
 
 func (m *Mongo) exists(p *types.Project) bool {
@@ -93,5 +95,5 @@ func (m *Mongo) exists(p *types.Project) bool {
 	err := m.collection.Find(bson.M{"cloneurl": p.CloneURL}).One(&r)
 	log.Printf("Check if project exists: %s", p.Name)
 
-	return eh.ErrorHandler(err)
+	return errors.Handler("Project exists", err)
 }
