@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run --rm -v "$PWD":/usr/src/ftds -w /usr/src/ftds golang go build -v
