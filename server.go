@@ -59,7 +59,6 @@ func getAllProjects(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	c := config.Get()
-	log.Println(&c)
 	utils.CleanWorkspace()
 
 	router := mux.NewRouter()
