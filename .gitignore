@@ -1,3 +1,5 @@
 workspace/
 .DS_Store
 public/
+fint-tech-docs-service
+client/node_modules

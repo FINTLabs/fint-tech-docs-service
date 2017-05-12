@@ -22,6 +22,7 @@ func errorResponse(e error, w http.ResponseWriter) {
 	json.NewEncoder(w).Encode(types.ErrorResponse{Message: em})
 	return
 }
+
 func gitHubWebHook(w http.ResponseWriter, req *http.Request) {
 	c := config.Get()
 	secret := []byte(c.GitHubSecret)

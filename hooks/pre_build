@@ -2,4 +2,5 @@
 
 docker run -v $(pwd):/src --rm node sh -c 'cd /src/client && npm install && npm rebuild node-sass --force && npm run buildClient'
 
-docker run -v $(pwd):/go/bin --rm golang:onbuild go get github.com/FINTProsjektet/fint-tech-docs-service/...
+#docker run -v $(pwd):/go/bin --rm golang:onbuild go get github.com/FINTProsjektet/fint-tech-docs-service
+docker run -v $(pwd):/go/bin --rm golang:onbuild sh -c "CGO_ENABLED=0 GOOS=linux go build ."
