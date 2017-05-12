@@ -7,6 +7,5 @@ MAINTAINER FINTProsjektet (www.fintprosjektet.no)
 ADD fint-tech-docs-service ftds
 COPY config.yml config.yml
 COPY public public
-RUN ls -lag .
 
 CMD ["./ftds"]
