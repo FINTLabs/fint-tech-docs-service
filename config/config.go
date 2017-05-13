@@ -25,7 +25,7 @@ type Config struct {
 // Get returns a Config struct
 func Get() Config {
 	c := Config{}
-	configor.Load(&c, "config.yml")
+	configor.Load(&c, "./config.yml")
 
 	return c
 }

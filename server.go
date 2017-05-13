@@ -60,6 +60,11 @@ func getAllProjects(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	c := config.Get()
+	log.Printf("Config.Port=%s", c.Port)
+	log.Printf("Config.WorkspaceDir=%s", c.WorkspaceDir)
+	log.Printf("Config.DBHost=%s", c.DBHost)
+	log.Printf("Config.BuildInternval=%d", c.BuildInternval)
+
 	utils.CleanWorkspace()
 
 	router := mux.NewRouter()
@@ -72,5 +77,4 @@ func main() {
 
 	log.Printf("FINT tech docs service is listening on port %s", c.Port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", c.Port), router))
-
 }

@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  tds:
+   image: fint/tech-docs-service
+   ports:
+     - "9000:9000"
+   environment:
+    TZ: Europe/Oslo
+    CONFIGOR_ENV_PREFIX: TDS
+    TDS_DBHOST: db
+    TDS_PORT: 9000
+    TDS_GITHUBSECRET: topsecret
+    TDS_BUILDINTERNVAL: 30
+   deploy:
+    replicas: 1
+    restart_policy:
+     condition: on-failure
+     delay: 5s
+     max_attempts: 3
+     window: 120s
+   networks:
+    - fint_shared
+    - fint_personal
+   depends_on:
+    - db
+
+  db:
+   image: mongo
+   environment:
+    TZ: Europe/Oslo
+   deploy:
+    replicas: 1
+    restart_policy:
+     condition: on-failure
+     delay: 5s
+     max_attempts: 3
+     window: 120s
+   networks:
+    - fint_tds
+
+networks:
+ fint_tds:
+  driver: overlay
+  external: false
+
