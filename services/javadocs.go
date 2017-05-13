@@ -26,9 +26,9 @@ func BuildJavaDocs(p *types.Project) error {
 	log.Printf("%s", out)
 	log.Println("Finished building javadocs")
 
-	d := fmt.Sprintf("../../public/%s", p.Name)
+	d := fmt.Sprintf("./../../public/%s", p.Name)
 	os.RemoveAll(d)
 	utils.CopyDir("./javadocs", d)
-	os.Chdir("../../")
+	os.Chdir("./../../")
 	return nil
 }
