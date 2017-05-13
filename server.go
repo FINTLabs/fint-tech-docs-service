@@ -68,7 +68,7 @@ func main() {
 	log.Printf("Config.DBHost=%s", c.DBHost)
 	log.Printf("Config.BuildInternval=%d", c.BuildInternval)
 	dir, _ := os.Getwd()
-	log.Printf("Working directory: ", strings.Replace(dir, " ", "\\ ", -1))
+	log.Printf("Working directory: %s", strings.Replace(dir, " ", "\\ ", -1))
 
 	utils.CleanWorkspace()
 
