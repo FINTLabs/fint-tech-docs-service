@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
 	"os"
 
@@ -66,7 +67,8 @@ func main() {
 	log.Printf("Config.WorkspaceDir=%s", c.WorkspaceDir)
 	log.Printf("Config.DBHost=%s", c.DBHost)
 	log.Printf("Config.BuildInternval=%d", c.BuildInternval)
-	log.Printf("Working directory: ", os.Getwd)
+	dir, _ := os.Getwd()
+	log.Printf("Working directory: ", strings.Replace(dir, " ", "\\ ", -1))
 
 	utils.CleanWorkspace()
 
