@@ -48,7 +48,7 @@ func gitHubWebHook(w http.ResponseWriter, req *http.Request) {
 
 func buildAllProjects(w http.ResponseWriter, req *http.Request) {
 	builder := svc.NewBuilder()
-	builder.BuildAllDocs()
+	go builder.BuildAllDocs()
 	w.WriteHeader(http.StatusOK)
 }
 
