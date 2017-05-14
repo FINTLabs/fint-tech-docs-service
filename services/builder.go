@@ -11,7 +11,7 @@ import (
 // Builder ....
 type Builder struct{}
 
-func buildDocs() {
+func buildDirtyDocs() {
 	mongo := NewMongo()
 	defer mongo.Close()
 
@@ -27,6 +27,22 @@ func buildDocs() {
 
 }
 
+// BuildAllDocs forces a build of all docs in the database
+func (b *Builder) BuildAllDocs() {
+	mongo := NewMongo()
+	defer mongo.Close()
+
+	utils.CleanWorkspace()
+
+	log.Println("Start building documentation")
+	ps := mongo.FindAll()
+	for i := 0; i < len(ps); i++ {
+		log.Printf("Building docs for %s\n", ps[i].Name)
+		BuildJavaDocs(&ps[i])
+	}
+
+}
+
 // NewBuilder ...
 func NewBuilder() *Builder {
 	return &Builder{}
@@ -37,6 +53,6 @@ func (b *Builder) Start() {
 	log.Println("Starting documentation builder")
 
 	c := config.Get()
-	gocron.Every(c.BuildInternval).Seconds().Do(buildDocs)
+	gocron.Every(c.BuildInternval).Seconds().Do(buildDirtyDocs)
 	<-gocron.Start()
 }

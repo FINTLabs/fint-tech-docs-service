@@ -46,6 +46,12 @@ func gitHubWebHook(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
+func buildAllProjects(w http.ResponseWriter, req *http.Request) {
+	builder := svc.NewBuilder()
+	builder.BuildAllDocs()
+	w.WriteHeader(http.StatusOK)
+}
+
 func getAllProjects(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -73,6 +79,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/webhook", gitHubWebHook).Methods("POST")
 	router.HandleFunc("/api/projects", getAllProjects).Methods("GET")
+	router.HandleFunc("/api/projects/build", buildAllProjects).Methods("POST")
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("./public"))))
 
 	b := svc.NewBuilder()

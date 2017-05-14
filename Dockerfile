@@ -3,10 +3,10 @@
 FROM gradle:alpine
 MAINTAINER FINTProsjektet (www.fintprosjektet.no)
 
-# Copy the local package files to the container's workspace.
+USER gradle
+
 ADD fint-tech-docs-service ftds
 COPY config.yml config.yml
 COPY public public
-RUN chown -R gradle:gradle public config.yml ftds
 
 CMD ["./ftds"]
