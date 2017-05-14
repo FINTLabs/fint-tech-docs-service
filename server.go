@@ -5,9 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
-
-	"os"
 
 	"github.com/FINTProsjektet/fint-tech-docs-service/config"
 	"github.com/FINTProsjektet/fint-tech-docs-service/services"
@@ -67,8 +64,9 @@ func main() {
 	log.Printf("Config.WorkspaceDir=%s", c.WorkspaceDir)
 	log.Printf("Config.DBHost=%s", c.DBHost)
 	log.Printf("Config.BuildInternval=%d", c.BuildInternval)
-	dir, _ := os.Getwd()
-	log.Printf("Working directory: %s", strings.Replace(dir, " ", "\\ ", -1))
+	//dir, _ := os.Getwd()
+	//log.Printf("Working directory: %s", strings.Replace(dir, " ", "\\ ", -1))
+	utils.LogPwd()
 
 	utils.CleanWorkspace()
 

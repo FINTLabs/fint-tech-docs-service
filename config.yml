@@ -1,6 +1,6 @@
 appname: ftds
 
-port: "9001"
+port: "9000"
 workspace-dir: "./workspace1"
 public-dir: "./public1"
 build-internval: "60"
