@@ -7,5 +7,6 @@ MAINTAINER FINTProsjektet (www.fintprosjektet.no)
 ADD fint-tech-docs-service ftds
 COPY config.yml config.yml
 COPY public public
+RUN chown -R gradle:gradle public config.yml ftds
 
 CMD ["./ftds"]
