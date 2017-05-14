@@ -18,6 +18,6 @@ func Get() Config {
 	c := Config{}
 	configor.Load(&c, "./config.yml")
 
-	if svc.FileExits(c.GitHubSecret)
+	//if svc.FileExits(c.GitHubSecret)
 	return c
 }
