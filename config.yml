@@ -1,6 +1,7 @@
 appname: ftds
 
-port: "9000"
-workspace-dir: "./workspace1"
-public-dir: "./public1"
-build-internval: "60"
+port: "9005"
+workspacedir: "./arbeid"
+publicdir: "./public1"
+buildinternval: "60"
+githubsecret: "1secret"

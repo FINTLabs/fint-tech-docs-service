@@ -25,7 +25,7 @@ func errorResponse(e error, w http.ResponseWriter) {
 
 func gitHubWebHook(w http.ResponseWriter, req *http.Request) {
 	c := config.Get()
-	secret := []byte(c.GitHubSecret)
+	secret := []byte(c.GithubSecret)
 
 	w.Header().Set("Content-Type", "application/json")
 
@@ -70,8 +70,7 @@ func main() {
 	log.Printf("Config.WorkspaceDir=%s", c.WorkspaceDir)
 	log.Printf("Config.DBHost=%s", c.DBHost)
 	log.Printf("Config.BuildInternval=%d", c.BuildInternval)
-	//dir, _ := os.Getwd()
-	//log.Printf("Working directory: %s", strings.Replace(dir, " ", "\\ ", -1))
+	log.Printf("Config.GithubSecret=%s", c.GithubSecret)
 	utils.LogPwd()
 
 	utils.CleanWorkspace()
