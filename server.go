@@ -26,6 +26,7 @@ func errorResponse(e error, w http.ResponseWriter) {
 func gitHubWebHook(w http.ResponseWriter, req *http.Request) {
 	c := config.Get()
 	secret := []byte(c.GithubSecret)
+	log.Printf("Secret: %s", secret)
 
 	w.Header().Set("Content-Type", "application/json")
 
