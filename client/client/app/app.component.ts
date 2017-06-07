@@ -1,40 +1,20 @@
-import { Component } from '@angular/core';
-
-import { Http } from "@angular/http";
-import { Observable, Observer, ReplaySubject } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { RepositoriesService } from './api/repositories.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  constructor(private http: Http) { }
+export class AppComponent implements OnInit {
 
-  isLoading = false;
-  repositories = [];
-  ngOnInit(){
-    this.getRepositories();
-    //console.log(this.repositories);
-  }
-  getRepositories() {
-    console.log('getRepositories');
-    /*
-      if (evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-      }
-      */
-      this.isLoading = true;
-      this.http.get(`/api/projects`)
-        .map(result => result.json())
-        .catch(error => {console.error(error); return error; })
-        .subscribe((result: any) => {
-          this.repositories = result;
-          console.log(result);
-          this.isLoading = false;
-        });
-  }
+  isLoading = this.repo.isLoading;
+  private _searchInput: string;
+  get searchInput() { return this._searchInput; }
+  set searchInput(v) { this._searchInput = v; this.searchChanged.emit(v); }
+  searchChanged = new EventEmitter<string>();
+
+  constructor(private repo: RepositoriesService) { }
+
+  ngOnInit() { }
 }

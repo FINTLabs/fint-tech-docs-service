@@ -1,7 +1,7 @@
 <nav>
-    <header>
-        <a href="/" title="FINT">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.3125 98.333374" version="1.1">
+  <header>
+    <a [routerLink]="['/']" title="FINT">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.3125 98.333374" version="1.1">
         <g transform="matrix(1.25,0,0,-1.25,0,98.333375)">
           <!-- F -->
           <g transform="translate(44.9458,70.3486)">
@@ -21,74 +21,24 @@
           </g>
         </g>
       </svg>
-        </a>
-    </header>
-    <ul>
-        <li>
-            <a href="/">Javadocs</a>
-        </li>
-        <li>
-            <a href="/">.Net</a>
-        </li>
-        <li>
-            <a href="https://fintprosjektet.github.io">FINT tech docs</a>
-        </li>
-    </ul>
+    </a>
+  </header>
+  <ul>
+    <li><a [routerLink]="['/java']">Javadocs</a></li>
+    <li><a [routerLink]="['/net']">.Net</a></li>
+    <li><a href="https://fintprosjektet.github.io">FINT tech docs</a></li>
+  </ul>
+  <form>
+    <input type="search" name="search" placeholder="Search..." [(ngModel)]="searchInput">
+  </form>
 </nav>
 
 <section>
-    <div class="md-spinner-container" *ngIf="isLoading">
-        <md-spinner class="center"></md-spinner>
-    </div>
+  <div class="md-spinner-container" *ngIf="isLoading">
+    <md-spinner class="center"></md-spinner>
+  </div>
 </section>
 
-<section>
-    <div>
-        <md-card *ngFor="let repo of repositories">
-            <md-card-title-group>
-                <img md-card-sm-image src="./assets/java.png">
-                <md-card-title>{{repo.name}}</md-card-title>
-                <md-card-subtitle>Description: {{repo.description}}</md-card-subtitle>
-                <md-card-subtitle>
-                    Latest: {{repo.latest}}
-                    <a href="{{repo.latest_url}}" target="_blank" mdTooltip="Link to GitHub lastest release">
-                        <ng2-fa name="external-link" size="lg"></ng2-fa>
-                    </a>
-                </md-card-subtitle>
-                <md-card-subtitle>Latest created at: {{repo.latest_time}}</md-card-subtitle>
-            </md-card-title-group>
-            <md-card-content>
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>Javadocs</th>
-                            <td>
-                                <a href="/{{repo.name}}" mdTooltip="Link to Javadocs">
-                                    <ng2-fa name="external-link" size="lg"></ng2-fa>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <ng2-fa name="github" size="lg"></ng2-fa>GitHub</th>
-                            <td>
-                                <a href="{{repo.html}}" target="_blank" mdTooltip="Link to GitHub prosjektet">
-                                    <ng2-fa name="external-link" size="lg"></ng2-fa>
-                                </a>
-                                <a href="{{repo.readme}}" target="_blank" mdTooltip="Link to Readme">
-                                    <ng2-fa name="book" size="lg"></ng2-fa>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Bintray (Maven)</th>
-                            <td>
-                                <a href="{{repo.maven}}" target="_blank" mdTooltip="Link to Maven repository"><img src="{{repo.maven_badge}}"></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </md-card-content>
-        </md-card>
-    </div>
-</section>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

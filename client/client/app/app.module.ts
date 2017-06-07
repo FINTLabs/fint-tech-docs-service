@@ -3,22 +3,30 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
-import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-awesome';
+import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { RepoCardComponent } from './repo-card/repo-card.component';
+import { RepoListComponent } from './repo-list/repo-list.component';
+import { RepositoriesService } from './api/repositories.service';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RepoCardComponent,
+    RepoListComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     MaterialModule.forRoot(),
-    Angular2FontAwesomeModule
+    AngularFontAwesomeModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [RepositoriesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

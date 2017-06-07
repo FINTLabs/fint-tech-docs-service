@@ -1,0 +1,47 @@
+<md-card>
+  <md-card-title-group>
+    <img md-card-sm-image src="./assets/java.png">
+    <md-card-title>{{repo.name}}</md-card-title>
+    <md-card-subtitle>Description: {{repo.description}}</md-card-subtitle>
+    <md-card-subtitle>
+      Latest: {{repo.latest}}
+      <a href="{{repo.latest_url}}" target="_blank" mdTooltip="Link to GitHub lastest release">
+        <fa name="external-link" size="lg"></fa>
+      </a>
+    </md-card-subtitle>
+    <md-card-subtitle>Latest created at: {{repo.latest_time}}</md-card-subtitle>
+  </md-card-title-group>
+
+  <md-card-content>
+    <table>
+      <tbody>
+        <tr>
+          <th>Javadocs</th>
+          <td>
+            <a href="/{{repo.name}}" mdTooltip="Link to Javadocs">
+              <fa name="external-link" size="lg"></fa>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <fa name="github" size="lg"></fa>GitHub</th>
+          <td>
+            <a href="{{repo.html}}" target="_blank" mdTooltip="Link to GitHub prosjektet">
+              <fa name="external-link" size="lg"></fa>
+            </a>
+            <a href="{{repo.readme}}" target="_blank" mdTooltip="Link to Readme">
+              <fa name="book" size="lg"></fa>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <th>Bintray (Maven)</th>
+          <td>
+            <a href="{{repo.maven}}" target="_blank" mdTooltip="Link to Maven repository"><img src="{{repo.maven_badge}}"></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </md-card-content>
+</md-card>
