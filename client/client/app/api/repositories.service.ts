@@ -21,8 +21,8 @@ export class RepositoriesService {
   all(): Observable<RepoModel[]> {
     this.isLoading = true;
     if (this.cache) { return Observable.of(this.cache); }
-    // return this.http.get(`${this.url}`)
-    return this.http.get(`https://docs.felleskomponent.no${this.url}`)
+    return this.http.get(`${this.url}`)
+    // return this.http.get(`https://docs.felleskomponent.no${this.url}`)
       .map(result => {
         this.isLoading = false;
         this.cache = result.json();
