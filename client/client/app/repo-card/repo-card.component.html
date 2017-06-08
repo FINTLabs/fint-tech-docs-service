@@ -1,7 +1,12 @@
 <md-card>
   <md-card-title-group>
     <img md-card-sm-image src="./assets/java.png">
-    <md-card-title>{{repo.name}}</md-card-title>
+    <md-card-title>
+      <a [routerLink]="['/', repo.lang, id]">
+        <fa name="link" fw="true"></fa>
+        {{repo.name}}
+      </a>
+    </md-card-title>
     <md-card-subtitle>Description: {{repo.description}}</md-card-subtitle>
     <md-card-subtitle>
       Latest: {{repo.latest}}

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { RepositoriesService } from '../api/repositories.service';
 import { RepoModel } from '../api/RepoModel';
 import { AppComponent } from '../app.component';
+import { RepoCardComponent } from "../repo-card/repo-card.component";
 
 /**
  * Component responsible for reading in the list of repositories,
@@ -15,7 +16,7 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./repo-list.component.scss']
 })
 export class RepoListComponent implements OnInit {
-
+  @ViewChildren(RepoCardComponent) cards: QueryList<RepoCardComponent>;
   repositories: RepoModel[] = [];
   type: string;
 
@@ -25,6 +26,14 @@ export class RepoListComponent implements OnInit {
     this.route.params.subscribe((param: any) => {
       this.type = param && param.type ? param.type : null;
       this.repo.all().subscribe(result => this.reposReceived(result, this.type));
+      if (param.class) {
+        setTimeout(() => {
+          const selectedCard = this.cards.find(c => c.id === param.class);
+          if (selectedCard) {
+            selectedCard.element.nativeElement.scrollIntoView({block: 'start', behavior: 'smooth'});
+          }
+        });
+      }
     });
 
     this.parent.searchChanged.subscribe(searchValue => {
@@ -45,5 +54,6 @@ export class RepoListComponent implements OnInit {
 
   reposReceived(result: RepoModel[], filter?: string) {
     this.repositories = (filter ? result.filter(m => m.lang === filter) : result);
+    // this.repositories = result;
   }
 }

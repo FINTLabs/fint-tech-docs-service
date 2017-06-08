@@ -6,6 +6,7 @@ import { RepoListComponent } from "./repo-list/repo-list.component";
 const routes: Routes = [
   { path: '', component: RepoListComponent },
   { path: ':type', component: RepoListComponent },
+  { path: ':type/:class', component: RepoListComponent },
 ];
 
 @NgModule({

@@ -1,18 +1,57 @@
-md-card {
-  margin: 2em auto;
+@import '~styles/variables';
+
+:host {
+  &:before {
+    content: '';
+    display: block;
+    height: 45px;
+    margin-top: -45px;
+  }
 }
 
+md-card {
+  margin: 1em auto;
+}
+
+a {
+  fa {
+    opacity: 0.6;
+    transition: opacity 0.1s ease-in-out;
+  }
+  &:hover fa {
+    opacity: 1;
+  }
+}
+fa {
+  color: $text-color;
+}
+
+md-card-title {
+  transition: transform 0.15s ease-in-out;
+  transform: translateX(-1em);
+  cursor: pointer;
+  a {
+    color: $text-color;
+  }
+  &:hover {
+    transform: translateX(-0.5em);
+    a fa {
+      opacity: 1;
+      transition-delay: .05s;
+    }
+  }
+  a fa {
+    opacity: 0;
+    display: inline-block;
+    transition: opacity 0.15s ease-in-out;
+  }
+}
 md-toolbar-row {
   justify-content: space-between;
 }
 
 md-card-title-group {
   border-bottom: 1px solid #ddd;
-}
-
-ng2-fa,
-fa {
-  color: #000;
 }
 
 table {

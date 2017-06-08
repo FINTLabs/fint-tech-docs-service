@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { RepoModel } from '../api/RepoModel';
+import { RepositoriesService } from "../api/repositories.service";
 
 /**
  * Component responsible for displaying the details of
@@ -18,7 +19,10 @@ import { RepoModel } from '../api/RepoModel';
 export class RepoCardComponent implements OnInit {
   @Input() repo: RepoModel;
 
-  constructor() { }
+  get id() {
+    return this.repoService.friendlyName(this.repo);
+  }
+  constructor(public element: ElementRef, private repoService: RepositoriesService) { }
 
   ngOnInit() {
   }
