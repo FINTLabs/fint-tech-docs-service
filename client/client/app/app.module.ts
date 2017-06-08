@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from '@angular/material';
+import { MdCardModule } from '@angular/material';
+
 import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 
 import { AppComponent } from './app.component';
@@ -22,8 +23,9 @@ import { RepositoriesService } from './api/repositories.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
     AngularFontAwesomeModule,
+    MdCardModule,
+    
     AppRoutingModule
   ],
   providers: [RepositoriesService],
