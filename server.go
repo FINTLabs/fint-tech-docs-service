@@ -39,10 +39,17 @@ func gitHubWebHook(w http.ResponseWriter, req *http.Request) {
 	if err := json.Unmarshal(hook.Payload, &evt); err != nil {
 		errorResponse(err, w)
 	}
+	//req.URL.Query()
+
+	p := types.Project{}
+	p.JavaDocs = utils.ParseBool(req.URL.Query().Get("javadocs"))
+	p.Bintray = utils.ParseBool(req.URL.Query().Get("bintray"))
+	p.Lang = req.URL.Query().Get("lang")
+	p.Build(evt.Repo)
 
 	mongo := svc.NewMongo()
 	defer mongo.Close()
-	mongo.Save(evt.Repo)
+	mongo.Save(&p)
 
 	w.WriteHeader(http.StatusOK)
 }

@@ -11,4 +11,6 @@ export interface RepoModel {
   maven_badge: string;
   name: string;
   readme: string;
+  bintray: boolean;
+  java_docs: boolean;
 }

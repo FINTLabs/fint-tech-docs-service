@@ -6,7 +6,6 @@ import (
 	"github.com/FINTProsjektet/fint-tech-docs-service/config"
 	"github.com/FINTProsjektet/fint-tech-docs-service/errors"
 	"github.com/FINTProsjektet/fint-tech-docs-service/types"
-	"github.com/google/go-github/github"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -74,14 +73,14 @@ func (m *Mongo) Clean(p *types.Project) {
 }
 
 // Save inserts the new `Project` or updates it if it exists
-func (m *Mongo) Save(r *github.PushEventRepository) {
+func (m *Mongo) Save(p *types.Project) {
 	var err error
-	p := types.Project{}
-	p.Build(r)
+	//p := types.Project{}
+	//p.Build(r)
 
 	log.Printf("Saving project to MongoDB: %s", p.Name)
 
-	if m.exists(&p) {
+	if m.exists(p) {
 		err = m.collection.Update(bson.M{"cloneurl": p.CloneURL}, p)
 	} else {
 		err = m.collection.Insert(p)

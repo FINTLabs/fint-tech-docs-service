@@ -20,10 +20,15 @@ func buildDirtyDocs() {
 	log.Println("Start building documentation")
 	ps := mongo.FindDirty()
 	for i := 0; i < len(ps); i++ {
-		log.Printf("Building docs for %s\n", ps[i].Name)
-		BuildJavaDocs(&ps[i])
+		if ps[i].JavaDocs {
+			log.Printf("Building docs for %s\n", ps[i].Name)
+			BuildJavaDocs(&ps[i])
+		} else {
+			log.Printf("%s is not a JavaDoc prosject.", ps[i].Name)
+		}
 		mongo.Clean(&ps[i])
 	}
+	log.Println("Finished building documentation")
 
 }
 
@@ -37,10 +42,14 @@ func (b *Builder) BuildAllDocs() {
 	log.Println("Start building documentation")
 	ps := mongo.FindAll()
 	for i := 0; i < len(ps); i++ {
-		log.Printf("Building docs for %s\n", ps[i].Name)
-		BuildJavaDocs(&ps[i])
+		if ps[i].JavaDocs {
+			log.Printf("Building docs for %s\n", ps[i].Name)
+			BuildJavaDocs(&ps[i])
+		} else {
+			log.Printf("%s is not a JavaDoc prosject.", ps[i].Name)
+		}
 	}
-
+	log.Println("Finished building documentation")
 }
 
 // NewBuilder ...

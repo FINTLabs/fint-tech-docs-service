@@ -20,6 +20,9 @@ type Project struct {
 	Latest      string `json:"latest,omitempty"`
 	LatestURL   string `json:"latest_url,omitempty"`
 	LatestTime  string `json:"latest_time,omitempty"`
+	Lang        string `json:"lang,omitempty"`
+	JavaDocs    bool   `json:"java_docs"`
+	Bintray     bool   `json:"bintray"`
 	Dirty       bool   `json:"dirty"`
 }
 
