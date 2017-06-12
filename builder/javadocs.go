@@ -7,10 +7,10 @@ import (
 
 	"fmt"
 
-	"github.com/FINTProsjektet/fint-tech-docs-service/errors"
 	"github.com/FINTProsjektet/fint-tech-docs-service/db"
-	"github.com/FINTProsjektet/fint-tech-docs-service/util"
+	"github.com/FINTProsjektet/fint-tech-docs-service/errors"
 	"github.com/FINTProsjektet/fint-tech-docs-service/git"
+	"github.com/FINTProsjektet/fint-tech-docs-service/util"
 )
 
 // BuildJavaDocs ...

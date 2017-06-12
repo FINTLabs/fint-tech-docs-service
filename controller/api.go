@@ -2,9 +2,9 @@ package controller
 
 import (
 	"encoding/json"
-	"net/http"
 	"github.com/FINTProsjektet/fint-tech-docs-service/builder"
 	"github.com/FINTProsjektet/fint-tech-docs-service/db"
+	"net/http"
 )
 
 // BuildAllProjects ...

@@ -1,15 +1,15 @@
 package controller
 
 import (
-	"log"
-	"gopkg.in/rjz/githubhook.v0"
 	"encoding/json"
-	"github.com/FINTProsjektet/fint-tech-docs-service/util"
-	"net/http"
-	"github.com/FINTProsjektet/fint-tech-docs-service/config"
 	"fmt"
-	"github.com/google/go-github/github"
+	"github.com/FINTProsjektet/fint-tech-docs-service/config"
 	"github.com/FINTProsjektet/fint-tech-docs-service/db"
+	"github.com/FINTProsjektet/fint-tech-docs-service/util"
+	"github.com/google/go-github/github"
+	"gopkg.in/rjz/githubhook.v0"
+	"log"
+	"net/http"
 )
 
 // GitHubWebHook ...

@@ -5,11 +5,11 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/FINTProsjektet/fint-tech-docs-service/builder"
 	"github.com/FINTProsjektet/fint-tech-docs-service/config"
+	"github.com/FINTProsjektet/fint-tech-docs-service/controller"
 	"github.com/FINTProsjektet/fint-tech-docs-service/util"
 	"github.com/gorilla/mux"
-	"github.com/FINTProsjektet/fint-tech-docs-service/controller"
-	"github.com/FINTProsjektet/fint-tech-docs-service/builder"
 )
 
 func main() {

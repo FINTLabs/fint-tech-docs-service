@@ -4,9 +4,9 @@ import (
 	"log"
 
 	"github.com/FINTProsjektet/fint-tech-docs-service/config"
+	"github.com/FINTProsjektet/fint-tech-docs-service/db"
 	"github.com/FINTProsjektet/fint-tech-docs-service/util"
 	"github.com/jasonlvhit/gocron"
-	"github.com/FINTProsjektet/fint-tech-docs-service/db"
 )
 
 // Builder ...

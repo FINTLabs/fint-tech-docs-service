@@ -5,7 +5,6 @@ import (
 	"net/http"
 )
 
-
 // SetupRouters ...
 func SetupRouters() *mux.Router {
 	router := mux.NewRouter()
