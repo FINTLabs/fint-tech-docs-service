@@ -7,7 +7,7 @@ Documentation service for FINT. You can see the service [here](https://docs.fell
 
 * Add a webhook in the settings section of the github project. 
     * Payload URL: https://docs.felleskomponent.no/webhook?parameter=value
-    * Secret: You need to set the secret
+    * Secret: *The secret*
     
 ## Query parameters
 
