@@ -8,15 +8,15 @@ import (
 )
 
 func BuildAllProjects(w http.ResponseWriter, req *http.Request) {
-	b := builder.NewBuilder()
-	go b.BuildAllDocs()
+	b := builder.New()
+	go b.BuildAllJavaDocs()
 	w.WriteHeader(http.StatusOK)
 }
 
 func GetAllProjects(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	mongo := db.NewMongo()
+	mongo := db.New()
 	defer mongo.Close()
 
 	p := mongo.FindAll()

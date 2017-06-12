@@ -4,7 +4,7 @@ import (
 	"log"
 	"gopkg.in/rjz/githubhook.v0"
 	"encoding/json"
-	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
+	"github.com/FINTProsjektet/fint-tech-docs-service/util"
 	"net/http"
 	"github.com/FINTProsjektet/fint-tech-docs-service/config"
 	"fmt"
@@ -33,13 +33,13 @@ func GitHubWebHook(w http.ResponseWriter, req *http.Request) {
 		}
 
 		p := db.Project{}
-		p.JavaDocs = utils.ParseBool(req.URL.Query().Get("javadocs"))
-		p.Bintray = utils.ParseBool(req.URL.Query().Get("bintray"))
-		p.FintCoreModel = utils.ParseBool(req.URL.Query().Get("fint_core_model"))
+		p.JavaDocs = util.ParseBool(req.URL.Query().Get("javadocs"))
+		p.Bintray = util.ParseBool(req.URL.Query().Get("bintray"))
+		p.FintCoreModel = util.ParseBool(req.URL.Query().Get("fint_core_model"))
 		p.Lang = req.URL.Query().Get("lang")
 		p.Build(evt.Repo)
 
-		mongo := db.NewMongo()
+		mongo := db.New()
 		defer mongo.Close()
 		mongo.Save(&p)
 	}

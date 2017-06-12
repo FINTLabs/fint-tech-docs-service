@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/FINTProsjektet/fint-tech-docs-service/config"
-	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
+	"github.com/FINTProsjektet/fint-tech-docs-service/util"
 	"github.com/jasonlvhit/gocron"
 	"github.com/FINTProsjektet/fint-tech-docs-service/db"
 )
@@ -12,14 +12,14 @@ import (
 // builder ....
 type Builder struct{}
 
-func buildDirtyDocs() {
-	mongo := db.NewMongo()
+func buildDirtyJavaDocs() {
+	mongo := db.New()
 	defer mongo.Close()
 
-	utils.CleanWorkspace()
+	util.CleanWorkspace()
 
 	log.Println("Start building documentation")
-	ps := mongo.FindDirty()
+	ps := mongo.FindDirtyJavaDocs()
 	for i := 0; i < len(ps); i++ {
 		if ps[i].JavaDocs {
 			log.Printf("Building docs for %s\n", ps[i].Name)
@@ -33,12 +33,12 @@ func buildDirtyDocs() {
 
 }
 
-// BuildAllDocs forces a build of all docs in the database
-func (b *Builder) BuildAllDocs() {
-	mongo := db.NewMongo()
+// BuildAllJavaDocs forces a build of all docs in the database
+func (b *Builder) BuildAllJavaDocs() {
+	mongo := db.New()
 	defer mongo.Close()
 
-	utils.CleanWorkspace()
+	util.CleanWorkspace()
 
 	log.Println("Start building documentation")
 	ps := mongo.FindAll()
@@ -53,8 +53,8 @@ func (b *Builder) BuildAllDocs() {
 	log.Println("Finished building documentation")
 }
 
-// NewBuilder ...
-func NewBuilder() *Builder {
+// New ...
+func New() *Builder {
 	return &Builder{}
 }
 
@@ -63,6 +63,6 @@ func (b *Builder) Start() {
 	log.Println("Starting documentation builder")
 
 	c := config.Get()
-	gocron.Every(c.BuildInternval).Seconds().Do(buildDirtyDocs)
+	gocron.Every(c.BuildInternval).Seconds().Do(buildDirtyJavaDocs)
 	<-gocron.Start()
 }

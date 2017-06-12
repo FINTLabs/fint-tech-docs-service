@@ -16,8 +16,8 @@ type Mongo struct {
 	err        error
 }
 
-// NewMongo creates a new MongoService
-func NewMongo() *Mongo {
+// New creates a new MongoService
+func New() *Mongo {
 	c := config.Get()
 
 	m := &Mongo{}
@@ -51,8 +51,8 @@ func (m *Mongo) FindAll() []Project {
 
 }
 
-// FindDirty ...
-func (m *Mongo) FindDirty() []Project {
+// FindDirtyJavaDocs ...
+func (m *Mongo) FindDirtyJavaDocs() []Project {
 	p := []Project{}
 	q := m.collection.Find(bson.M{"dirty": true})
 	err := q.All(&p)

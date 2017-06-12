@@ -9,7 +9,7 @@ import (
 
 	"github.com/FINTProsjektet/fint-tech-docs-service/errors"
 	"github.com/FINTProsjektet/fint-tech-docs-service/db"
-	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
+	"github.com/FINTProsjektet/fint-tech-docs-service/util"
 	"github.com/FINTProsjektet/fint-tech-docs-service/git"
 )
 
@@ -18,9 +18,9 @@ func BuildJavaDocs(p *db.Project) error {
 	g := git.New()
 
 	g.Clone(p)
-	utils.LogPwd()
-	os.Chdir(utils.BuildPath(p.Name))
-	utils.LogPwd()
+	util.LogPwd()
+	os.Chdir(util.BuildPath(p.Name))
+	util.LogPwd()
 
 	out, err := exec.Command("./gradlew", "javadoc").CombinedOutput()
 	if err != nil {
@@ -33,9 +33,9 @@ func BuildJavaDocs(p *db.Project) error {
 	log.Println("Copying javadocs to http server root")
 	d := fmt.Sprintf("./../../public/%s", p.Name)
 	errors.Handler("Remove old javadocs: ", os.RemoveAll(d))
-	errors.Handler("Copy new javadocs: ", utils.CopyDir("./javadocs", d))
+	errors.Handler("Copy new javadocs: ", util.CopyDir("./javadocs", d))
 	errors.Handler("Go back home: ", os.Chdir("./../../"))
-	utils.LogPwd()
+	util.LogPwd()
 
 	return nil
 }

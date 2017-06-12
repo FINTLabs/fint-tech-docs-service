@@ -6,7 +6,7 @@ import (
 
 	"gopkg.in/src-d/go-git.v4"
 
-	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
+	"github.com/FINTProsjektet/fint-tech-docs-service/util"
 	"github.com/FINTProsjektet/fint-tech-docs-service/db"
 )
 
@@ -22,7 +22,7 @@ func New() *Git {
 func (g *Git) Clone(p *db.Project) {
 
 	log.Printf("Cloning repository %s", p.Name)
-	r, err := git.PlainClone(utils.BuildPath(p.Name), false, &git.CloneOptions{
+	r, err := git.PlainClone(util.BuildPath(p.Name), false, &git.CloneOptions{
 		URL:      p.CloneURL,
 		Progress: os.Stdout,
 	})
