@@ -1,4 +1,4 @@
-package svc
+package builder
 
 import (
 	"log"
@@ -6,13 +6,14 @@ import (
 	"github.com/FINTProsjektet/fint-tech-docs-service/config"
 	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
 	"github.com/jasonlvhit/gocron"
+	"github.com/FINTProsjektet/fint-tech-docs-service/db"
 )
 
-// Builder ....
+// builder ....
 type Builder struct{}
 
 func buildDirtyDocs() {
-	mongo := NewMongo()
+	mongo := db.NewMongo()
 	defer mongo.Close()
 
 	utils.CleanWorkspace()
@@ -34,7 +35,7 @@ func buildDirtyDocs() {
 
 // BuildAllDocs forces a build of all docs in the database
 func (b *Builder) BuildAllDocs() {
-	mongo := NewMongo()
+	mongo := db.NewMongo()
 	defer mongo.Close()
 
 	utils.CleanWorkspace()

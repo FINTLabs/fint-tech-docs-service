@@ -1,4 +1,4 @@
-package svc
+package builder
 
 import (
 	"log"
@@ -8,13 +8,14 @@ import (
 	"fmt"
 
 	"github.com/FINTProsjektet/fint-tech-docs-service/errors"
-	"github.com/FINTProsjektet/fint-tech-docs-service/types"
+	"github.com/FINTProsjektet/fint-tech-docs-service/db"
 	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
+	"github.com/FINTProsjektet/fint-tech-docs-service/git"
 )
 
 // BuildJavaDocs ...
-func BuildJavaDocs(p *types.Project) error {
-	g := NewGit()
+func BuildJavaDocs(p *db.Project) error {
+	g := git.New()
 
 	g.Clone(p)
 	utils.LogPwd()

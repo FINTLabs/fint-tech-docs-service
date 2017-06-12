@@ -1,4 +1,4 @@
-package types
+package controller
 
 // ErrorResponse ...
 type ErrorResponse struct {

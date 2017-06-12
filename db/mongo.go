@@ -1,11 +1,10 @@
-package svc
+package db
 
 import (
 	"log"
 
 	"github.com/FINTProsjektet/fint-tech-docs-service/config"
 	"github.com/FINTProsjektet/fint-tech-docs-service/errors"
-	"github.com/FINTProsjektet/fint-tech-docs-service/types"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -39,8 +38,8 @@ func (m *Mongo) Close() {
 }
 
 // FindAll ...
-func (m *Mongo) FindAll() []types.Project {
-	p := []types.Project{}
+func (m *Mongo) FindAll() []Project {
+	p := []Project{}
 	q := m.collection.Find(bson.M{})
 	err := q.All(&p)
 
@@ -48,13 +47,13 @@ func (m *Mongo) FindAll() []types.Project {
 		return p
 	}
 
-	return []types.Project{}
+	return []Project{}
 
 }
 
 // FindDirty ...
-func (m *Mongo) FindDirty() []types.Project {
-	p := []types.Project{}
+func (m *Mongo) FindDirty() []Project {
+	p := []Project{}
 	q := m.collection.Find(bson.M{"dirty": true})
 	err := q.All(&p)
 
@@ -62,18 +61,18 @@ func (m *Mongo) FindDirty() []types.Project {
 		return p
 	}
 
-	return []types.Project{}
+	return []Project{}
 
 }
 
 // Clean sets the dirty flag to true
-func (m *Mongo) Clean(p *types.Project) {
+func (m *Mongo) Clean(p *Project) {
 	p.Dirty = false
 	m.collection.Update(bson.M{"cloneurl": p.CloneURL}, p)
 }
 
 // Save inserts the new `Project` or updates it if it exists
-func (m *Mongo) Save(p *types.Project) {
+func (m *Mongo) Save(p *Project) {
 	var err error
 	//p := types.Project{}
 	//p.Build(r)
@@ -89,8 +88,8 @@ func (m *Mongo) Save(p *types.Project) {
 	errors.Handler("Saving project", err)
 }
 
-func (m *Mongo) exists(p *types.Project) bool {
-	r := types.Project{}
+func (m *Mongo) exists(p *Project) bool {
+	r := Project{}
 	err := m.collection.Find(bson.M{"cloneurl": p.CloneURL}).One(&r)
 	log.Printf("Check if project exists: %s", p.Name)
 
