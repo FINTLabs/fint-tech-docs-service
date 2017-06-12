@@ -24,32 +24,36 @@ func errorResponse(e error, w http.ResponseWriter) {
 }
 
 func gitHubWebHook(w http.ResponseWriter, req *http.Request) {
-	c := config.Get()
-	secret := []byte(c.GithubSecret)
-	log.Printf("Secret: %s", secret)
 
-	w.Header().Set("Content-Type", "application/json")
+	if req.Header.Get("X-Github-Event") == "push" {
 
-	hook, err := githubhook.Parse(secret, req)
-	if err != nil {
-		errorResponse(err, w)
+		c := config.Get()
+		secret := []byte(c.GithubSecret)
+		log.Printf("Secret: %s", secret)
+
+		w.Header().Set("Content-Type", "application/json")
+
+		hook, err := githubhook.Parse(secret, req)
+		if err != nil {
+			errorResponse(err, w)
+		}
+
+		evt := github.PushEvent{}
+		if err := json.Unmarshal(hook.Payload, &evt); err != nil {
+			errorResponse(err, w)
+		}
+
+		p := types.Project{}
+		p.JavaDocs = utils.ParseBool(req.URL.Query().Get("javadocs"))
+		p.Bintray = utils.ParseBool(req.URL.Query().Get("bintray"))
+		p.FintCoreModel = utils.ParseBool(req.URL.Query().Get("fint_core_model"))
+		p.Lang = req.URL.Query().Get("lang")
+		p.Build(evt.Repo)
+
+		mongo := svc.NewMongo()
+		defer mongo.Close()
+		mongo.Save(&p)
 	}
-
-	evt := github.PushEvent{}
-	if err := json.Unmarshal(hook.Payload, &evt); err != nil {
-		errorResponse(err, w)
-	}
-	//req.URL.Query()
-
-	p := types.Project{}
-	p.JavaDocs = utils.ParseBool(req.URL.Query().Get("javadocs"))
-	p.Bintray = utils.ParseBool(req.URL.Query().Get("bintray"))
-	p.Lang = req.URL.Query().Get("lang")
-	p.Build(evt.Repo)
-
-	mongo := svc.NewMongo()
-	defer mongo.Close()
-	mongo.Save(&p)
 
 	w.WriteHeader(http.StatusOK)
 }

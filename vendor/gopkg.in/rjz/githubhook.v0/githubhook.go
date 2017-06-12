@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strings"
 )
@@ -93,8 +92,6 @@ func New(req *http.Request) (hook *Hook, err error) {
 // Parse reads and verifies the hook in an inbound request.
 func Parse(secret []byte, req *http.Request) (hook *Hook, err error) {
 	hook, err = New(req)
-	log.Printf("Secret: %s", secret)
-
 	if err == nil && !hook.SignedBy(secret) {
 		err = errors.New("Invalid signature")
 	}

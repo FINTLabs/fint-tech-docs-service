@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	git "gopkg.in/src-d/go-git.v4"
+	"gopkg.in/src-d/go-git.v4"
 
 	"github.com/FINTProsjektet/fint-tech-docs-service/types"
 	"github.com/FINTProsjektet/fint-tech-docs-service/utils"
