@@ -8,11 +8,11 @@ Documentation service for FINT. You can see the service [here](https://docs.fell
 * Add a webhook in the settings section of the github project. 
     * Payload URL: https://docs.felleskomponent.no/webhook
     
-    | Parameter | Description |
-    |-----------|-------------|
-    | javadocs | `true` / `false` if the project has javadocs |
-    | bintray | `false` / `false` if the project is on bintray |
-    | lang | `java` or `net` |
-    | fint_core_model | `false` / `false` |
+    | Parameter | Value | Default | Description |
+    |-----------|-------------|-----------|-------------|
+    | javadocs | `true` or `false`  | `false` | |
+    | bintray | `false` or `false`  | `false` | |
+    | lang | `java` or `net` | | |
+    | fint_core_model | `false` or `false` | `false` | |
     
     * Secret: You need to set the secret
