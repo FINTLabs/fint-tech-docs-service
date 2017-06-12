@@ -6,7 +6,7 @@ Documentation service for FINT. You can see the service [here](https://docs.fell
 # Add a new repo to the service
 
 * Add a webhook in the settings section of the github project. 
-    * Payload URL: https://docs.felleskomponent.no/webhook?`query parameters`
+    * Payload URL: https://docs.felleskomponent.no/webhook?parameter=value
     
     | Parameter | Value | Default | Description |
     |-----------|-------------|-----------|-------------|
