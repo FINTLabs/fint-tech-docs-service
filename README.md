@@ -15,5 +15,5 @@ Documentation service for FINT. You can see the service [here](https://docs.fell
 |-----------|-------------|-----------|-------------|
 | javadocs | `true` or `false`  | `false` | Indicates if the project has JavaDocs |
 | bintray | `false` or `false`  | `false` | Indicates if the project is on Bintray |
-| lang | `java` or `net` | n/a | Indicates the language of the project. java=java, net=csharp (dotnet) |
+| lang | `java` or `net` | n/a | Indicates the language of the project. |
 | fint_core_model | `false` or `false` | `false` | Indicates if the project is a core FINT model |
