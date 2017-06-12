@@ -12,6 +12,7 @@ import (
 	"github.com/FINTProsjektet/fint-tech-docs-service/db"
 )
 
+// GitHubWebHook ...
 func GitHubWebHook(w http.ResponseWriter, req *http.Request) {
 
 	if req.Header.Get("X-Github-Event") == "push" {

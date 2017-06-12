@@ -5,6 +5,8 @@ import (
 	"net/http"
 )
 
+
+// SetupRouters ...
 func SetupRouters() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/webhook", GitHubWebHook).Methods("POST")

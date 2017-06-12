@@ -9,7 +9,7 @@ import (
 	"github.com/FINTProsjektet/fint-tech-docs-service/db"
 )
 
-// builder ....
+// Builder ...
 type Builder struct{}
 
 func buildDirtyJavaDocs() {

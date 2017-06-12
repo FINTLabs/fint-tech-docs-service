@@ -7,12 +7,14 @@ import (
 	"github.com/FINTProsjektet/fint-tech-docs-service/db"
 )
 
+// BuildAllProjects ...
 func BuildAllProjects(w http.ResponseWriter, req *http.Request) {
 	b := builder.New()
 	go b.BuildAllJavaDocs()
 	w.WriteHeader(http.StatusOK)
 }
 
+// GetAllProjects ...
 func GetAllProjects(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 

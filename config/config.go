@@ -31,6 +31,7 @@ func Get() Config {
 	return c
 }
 
+// Dump prints out the configuration.
 func Dump() {
 	c := Get()
 	log.Printf("Config.Port=%s", c.Port)
