@@ -32,7 +32,7 @@ func BuildJavaDocs(p *db.Project) error {
 	log.Printf("%s", out)
 
 	log.Println("Copying javadocs to http server root")
-	d := fmt.Sprintf("%s/public1/%s", dir, p.Name)
+	d := fmt.Sprintf("%s/public/%s", dir, p.Name)
 	errors.Handler("Remove old javadocs: ", os.RemoveAll(d))
 	errors.Handler("Copy new javadocs: ", util.CopyDir(javadocs, d))
 
