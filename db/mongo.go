@@ -3,8 +3,8 @@ package db
 import (
 	"log"
 
-	"github.com/FINTProsjektet/fint-tech-docs-service/config"
-	"github.com/FINTProsjektet/fint-tech-docs-service/errors"
+	"github.com/FINTprosjektet/fint-tech-docs-service/config"
+	"github.com/FINTprosjektet/fint-tech-docs-service/errors"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )

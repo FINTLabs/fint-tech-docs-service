@@ -7,10 +7,10 @@ import (
 
 	"fmt"
 
-	"github.com/FINTProsjektet/fint-tech-docs-service/db"
-	"github.com/FINTProsjektet/fint-tech-docs-service/errors"
-	"github.com/FINTProsjektet/fint-tech-docs-service/git"
-	"github.com/FINTProsjektet/fint-tech-docs-service/util"
+	"github.com/FINTprosjektet/fint-tech-docs-service/db"
+	"github.com/FINTprosjektet/fint-tech-docs-service/errors"
+	"github.com/FINTprosjektet/fint-tech-docs-service/git"
+	"github.com/FINTprosjektet/fint-tech-docs-service/util"
 )
 
 // BuildJavaDocs ...
@@ -24,7 +24,7 @@ func BuildJavaDocs(p *db.Project) error {
 
 	out, err := exec.Command("./gradlew", "javadoc").CombinedOutput()
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 		return err
 	}
 	log.Printf("%s", out)

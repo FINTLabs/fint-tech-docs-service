@@ -2,8 +2,8 @@ package controller
 
 import (
 	"encoding/json"
-	"github.com/FINTProsjektet/fint-tech-docs-service/builder"
-	"github.com/FINTProsjektet/fint-tech-docs-service/db"
+	"github.com/FINTprosjektet/fint-tech-docs-service/builder"
+	"github.com/FINTprosjektet/fint-tech-docs-service/db"
 	"net/http"
 )
 

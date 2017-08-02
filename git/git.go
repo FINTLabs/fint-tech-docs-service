@@ -6,8 +6,8 @@ import (
 
 	"gopkg.in/src-d/go-git.v4"
 
-	"github.com/FINTProsjektet/fint-tech-docs-service/db"
-	"github.com/FINTProsjektet/fint-tech-docs-service/util"
+	"github.com/FINTprosjektet/fint-tech-docs-service/db"
+	"github.com/FINTprosjektet/fint-tech-docs-service/util"
 )
 
 // Git ...

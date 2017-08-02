@@ -7,6 +7,7 @@ import (
 	"io"
 
 	"gopkg.in/src-d/go-git.v4/plumbing"
+	"gopkg.in/src-d/go-git.v4/plumbing/filemode"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 	"gopkg.in/src-d/go-git.v4/plumbing/storer"
 )
@@ -22,6 +23,14 @@ func Objects(
 
 	seen := hashListToSet(ignore)
 	result := make(map[plumbing.Hash]bool)
+
+	cleanerFunc := func(h plumbing.Hash) {
+		seen[h] = true
+	}
+
+	for _, h := range ignore {
+		processObject(s, h, hashListToSet([]plumbing.Hash{}), cleanerFunc)
+	}
 
 	walkerFunc := func(h plumbing.Hash) {
 		if !seen[h] {
@@ -82,7 +91,7 @@ func reachableObjects(
 	commit *object.Commit,
 	seen map[plumbing.Hash]bool,
 	cb func(h plumbing.Hash)) error {
-	return object.NewCommitPreIterator(commit).
+	return object.NewCommitPreorderIter(commit).
 		ForEach(func(commit *object.Commit) error {
 			if seen[commit.Hash] {
 				return nil
@@ -119,6 +128,10 @@ func iterateCommitTrees(
 		}
 		if err != nil {
 			return err
+		}
+
+		if e.Mode == filemode.Submodule {
+			continue
 		}
 
 		if seen[e.Hash] {

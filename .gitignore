@@ -3,3 +3,4 @@ workspace/
 public/
 fint-tech-docs-service
 client/node_modules
+.idea

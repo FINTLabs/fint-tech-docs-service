@@ -3,9 +3,9 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/FINTProsjektet/fint-tech-docs-service/config"
-	"github.com/FINTProsjektet/fint-tech-docs-service/db"
-	"github.com/FINTProsjektet/fint-tech-docs-service/util"
+	"github.com/FINTprosjektet/fint-tech-docs-service/config"
+	"github.com/FINTprosjektet/fint-tech-docs-service/db"
+	"github.com/FINTprosjektet/fint-tech-docs-service/util"
 	"github.com/google/go-github/github"
 	"gopkg.in/rjz/githubhook.v0"
 	"log"

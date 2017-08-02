@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/FINTProsjektet/fint-tech-docs-service/config"
+	"github.com/FINTprosjektet/fint-tech-docs-service/config"
 )
 
 // BuildPath return the path we're building the documentation in.
