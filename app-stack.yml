@@ -5,6 +5,8 @@ services:
    image: fint/tech-docs-service
    ports:
      - "9000:9000"
+   volumes:
+     - data-volume:/data/db
    environment:
     TZ: Europe/Oslo
     CONFIGOR_ENV_PREFIX: TDS
@@ -13,6 +15,9 @@ services:
     TDS_GITHUBSECRET: topsecret
     TDS_BUILDINTERNVAL: 30
    deploy:
+    placement:
+     constraints:
+      - node.hostname == sr-is-docker-08
     replicas: 1
     restart_policy:
      condition: on-failure
@@ -29,7 +34,12 @@ services:
    image: mongo
    environment:
     TZ: Europe/Oslo
+   volumes:
+    - data-volume:/data/db
    deploy:
+    placement:
+     constraints:
+      - node.hostname == sr-is-docker-08
     replicas: 1
     restart_policy:
      condition: on-failure
@@ -43,4 +53,7 @@ networks:
  fint_tds:
   driver: overlay
   external: false
+
+volumes:
+  data-volume:
 
