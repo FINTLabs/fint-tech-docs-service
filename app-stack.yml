@@ -1,23 +1,24 @@
-version: '3'
+version: '3.1'
 
 services:
   tds:
    image: fint/tech-docs-service
    ports:
      - "9000:9000"
-   volumes:
-     - data-volume:/data/db
+   secrets:
+    - ftds_github_webhook
    environment:
     TZ: Europe/Oslo
     CONFIGOR_ENV_PREFIX: TDS
     TDS_DBHOST: db
     TDS_PORT: 9000
-    TDS_GITHUBSECRET: topsecret
+    TDS_GITHUBSECRET: /run/secrets/ftds_github_webhook
     TDS_BUILDINTERNVAL: 30
+    TDS_WORKSPACEDIR: ./workspace
    deploy:
     placement:
      constraints:
-      - node.hostname == sr-is-docker-08
+      - node.hostname == sr-is-docker-02
     replicas: 1
     restart_policy:
      condition: on-failure
@@ -25,8 +26,7 @@ services:
      max_attempts: 3
      window: 120s
    networks:
-    - fint_shared
-    - fint_personal
+    - fint_tds
    depends_on:
     - db
 
@@ -35,11 +35,11 @@ services:
    environment:
     TZ: Europe/Oslo
    volumes:
-    - data-volume:/data/db
+    - fint-tech-docs-db-volume:/data/db
    deploy:
     placement:
      constraints:
-      - node.hostname == sr-is-docker-08
+      - node.hostname == sr-is-docker-02
     replicas: 1
     restart_policy:
      condition: on-failure
@@ -55,5 +55,10 @@ networks:
   external: false
 
 volumes:
-  data-volume:
+ fint-tech-docs-db-volume:
+
+secrets:
+    ftds_github_webhook:
+     external: true
+
 

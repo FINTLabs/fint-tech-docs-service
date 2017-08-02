@@ -18,24 +18,23 @@ func BuildJavaDocs(p *db.Project) error {
 	g := git.New()
 
 	g.Clone(p)
-	util.LogPwd()
-	os.Chdir(util.BuildPath(p.Name))
-	util.LogPwd()
+	dir, _ := os.Getwd()
+	gradle := fmt.Sprintf("%s/%s/gradlew", dir, util.BuildPath(p.Name))
+	buildGradle := fmt.Sprintf("%s/%s", dir, util.BuildPath(p.Name))
+	javadocs := fmt.Sprintf("%s/%s/javadocs", dir,  util.BuildPath(p.Name))
 
-	out, err := exec.Command("./gradlew", "javadoc").CombinedOutput()
+	out, err := exec.Command(gradle, "-p", buildGradle, "javadoc").CombinedOutput()
 	if err != nil {
-		log.Println(err)
+		log.Printf("%s", out)
+		log.Printf("Gradle build faild (%s)", err)
 		return err
 	}
 	log.Printf("%s", out)
-	log.Println("Finished building javadocs")
 
 	log.Println("Copying javadocs to http server root")
-	d := fmt.Sprintf("./../../public/%s", p.Name)
+	d := fmt.Sprintf("%s/public1/%s", dir, p.Name)
 	errors.Handler("Remove old javadocs: ", os.RemoveAll(d))
-	errors.Handler("Copy new javadocs: ", util.CopyDir("./javadocs", d))
-	errors.Handler("Go back home: ", os.Chdir("./../../"))
-	util.LogPwd()
+	errors.Handler("Copy new javadocs: ", util.CopyDir(javadocs, d))
 
 	return nil
 }

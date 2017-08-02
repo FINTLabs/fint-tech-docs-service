@@ -11,7 +11,7 @@ import (
 // BuildPath return the path we're building the documentation in.
 func BuildPath(name string) string {
 	c := config.Get()
-	return fmt.Sprintf("%s/%s/", c.WorkspaceDir, name)
+	return fmt.Sprintf("%s/%s", c.WorkspaceDir, name)
 }
 
 // CleanWorkspace removes the workspaces directory.
