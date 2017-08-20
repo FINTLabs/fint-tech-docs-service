@@ -15,6 +15,8 @@ services:
     TDS_GITHUBSECRET: /run/secrets/ftds_github_webhook
     TDS_BUILDINTERNVAL: 30
     TDS_WORKSPACEDIR: ./workspace
+   volumes:
+    - fint-tech-docs-gradle-home:/home/gradle
    deploy:
     placement:
      constraints:
@@ -56,6 +58,7 @@ networks:
 
 volumes:
  fint-tech-docs-db-volume:
+ fint-tech-docs-gradle-home:
 
 secrets:
     ftds_github_webhook:
