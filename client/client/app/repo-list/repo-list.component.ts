@@ -25,7 +25,7 @@ export class RepoListComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((param: any) => {
       this.type = param && param.type ? param.type : null;
-      this.repo.all().subscribe(result => this.reposReceived(result, this.type));
+      this.repo.all().subscribe(result => this.reposReceived(<RepoModel[]>result, this.type));
       if (param.class) {
         setTimeout(() => {
           const selectedCard = this.cards.find(c => c.id === param.class);
@@ -38,7 +38,7 @@ export class RepoListComponent implements OnInit {
 
     this.parent.searchChanged.subscribe(searchValue => {
       this.repo.all().subscribe(result => {
-        this.reposReceived(result, this.type);
+        this.reposReceived(<RepoModel[]>result, this.type);
         this.repositories = this.repositories.filter(model => {
           return Object.keys(model).some(key => {
             const val = model[key];

@@ -18,7 +18,7 @@ export class RepositoriesService {
    * return the cached model. If you want a fresh model,
    * you will have to refresh your browser!
    */
-  all(): Observable<RepoModel[]> {
+  all(): Observable<RepoModel[] | {}> {
     this.isLoading = true;
     if (this.cache) { return Observable.of(this.cache); }
     return this.http.get(`${this.url}`)
