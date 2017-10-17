@@ -18,4 +18,5 @@ COPY --from=build2 /go/src/github.com/FINTprosjektet/fint-tech-docs-service/fint
 USER root
 RUN chown -R gradle:gradle config.yml ftds public
 USER gradle
+ENV TZ=Europe/Oslo
 CMD ["./ftds"]
