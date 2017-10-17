@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   tds:
-   image: fint/tech-docs-service
+   image: dtr.rogfk.no/fint-beta/tech-docs-service
    ports:
      - "9000:9000"
    secrets:
