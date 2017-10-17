@@ -12,11 +12,11 @@ ENV GOOS=linux
 RUN go build .
 
 FROM gradle:alpine
-RUN apk add tzdata && rm -rf /var/cache/apk/*
 ADD config.yml config.yml
 COPY --from=build1 /src/public public
 COPY --from=build2 /go/src/github.com/FINTprosjektet/fint-tech-docs-service/fint-tech-docs-service ftds
 USER root
+RUN apk add tzdata && rm -rf /var/cache/apk/*
 RUN chown -R gradle:gradle config.yml ftds public
 USER gradle
 ENV TZ=Europe/Oslo
