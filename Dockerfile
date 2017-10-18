@@ -16,9 +16,9 @@ RUN cd /src/client && yarn install && yarn buildClient
 FROM gradle:alpine
 COPY config.yml config.yml
 COPY --from=node /src/public public
-COPY --from=go /go/bin/fint-tech-docs-service ftds
+COPY --from=go /go/bin/fint-tech-docs-service /usr/local/bin/ftds
 USER root
 RUN apk add --update tzdata && rm -rf /var/cache/apk/*
-RUN chown -R gradle:gradle config.yml ftds public
+RUN chown -R gradle:gradle config.yml public
 USER gradle
-CMD ["./ftds"]
+CMD ["/usr/local/bin/ftds"]
