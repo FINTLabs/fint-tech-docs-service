@@ -1,9 +1,3 @@
-FROM node:alpine AS node
-WORKDIR /src/client
-COPY client .
-RUN cd /src/client && yarn install && yarn buildClient
-#RUN cd /src/client && npm install && npm run buildClient
-
 FROM golang:alpine AS go
 WORKDIR /go/src/github.com/FINTprosjektet/fint-tech-docs-service
 COPY go .
@@ -12,6 +6,12 @@ ENV GOOS=linux
 #RUN go install -a -v github.com/FINTprosjektet/fint-tech-docs-service
 RUN go-wrapper download
 RUN go-wrapper install
+
+FROM node:alpine AS node
+WORKDIR /src/client
+COPY client .
+RUN cd /src/client && yarn install && yarn buildClient
+#RUN cd /src/client && npm install && npm run buildClient
 
 FROM gradle:alpine
 COPY config.yml config.yml
