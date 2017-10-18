@@ -1,6 +1,0 @@
-#!/bin/bash
-
-#docker run -v $(pwd):/src --rm node sh -c 'cd /src/client && npm install && npm rebuild node-sass --force && npm run buildClient'
-docker run -v $(pwd):/src --rm node:alpine sh -c 'cd /src/client && npm install && npm run buildClient'
-
-docker run -v $(pwd):/go/src/github.com/FINTprosjektet/fint-tech-docs-service -w /go/src/github.com/FINTprosjektet/fint-tech-docs-service --rm golang:alpine sh -c "CGO_ENABLED=0 GOOS=linux go build ."

@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+  tds:
+    build: .
+    ports:
+      - "9000:9000"
+    secrets:
+      - ftds_github_webhook
+    environment:
+      TZ: Europe/Oslo
+      CONFIGOR_ENV_PREFIX: TDS
+      TDS_DBHOST: db
+      TDS_PORT: 9000
+      TDS_GITHUBSECRET: /run/secrets/ftds_github_webhook
+      TDS_BUILDINTERNVAL: 30
+      TDS_WORKSPACEDIR: ./workspace
+    volumes:
+      - fint-tech-docs-gradle-home:/home/gradle
+    depends_on:
+      - db
+
+  db:
+    image: mongo
+    environment:
+      TZ: Europe/Oslo
+    volumes:
+      - fint-tech-docs-db-volume:/data/db
+
+volumes:
+  fint-tech-docs-db-volume:
+  fint-tech-docs-gradle-home:
+
+secrets:
+  ftds_github_webhook:
+    file: ./secret.txt
