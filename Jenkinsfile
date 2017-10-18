@@ -6,7 +6,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh "docker build --tag dtr.rogfk.no/fint-beta/tech-docs-service:latest ."
+                sh "docker build --no-cache --tag dtr.rogfk.no/fint-beta/tech-docs-service:latest ."
             }
         }
         stage('Publish') {
