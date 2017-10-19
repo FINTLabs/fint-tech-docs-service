@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"log"
 	"os"
+	"strings"
 )
 
 func router(webroot string) func(w http.ResponseWriter, r *http.Request) {
@@ -22,12 +23,11 @@ func router(webroot string) func(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(http.StatusForbidden)
 			} else if r.URL.Path == "/api/projects" {
 				GetAllProjects(w,r)
+			} else if strings.HasPrefix(r.URL.Path, "/javadocs/") {
+				http.ServeFile(w, r, "./")
 			} else if _, err := os.Stat(webroot + r.URL.Path); err == nil {
 				log.Println("Serving file", webroot + r.URL.Path)
 				http.ServeFile(w, r, webroot + r.URL.Path)
-			} else if _, err := os.Stat("." + r.URL.Path); err == nil {
-				log.Println("Serving file", "." + r.URL.Path)
-				http.ServeFile(w, r, "." + r.URL.Path)
 			} else {
 				http.ServeFile(w, r, webroot + "/index.html")
 			}
