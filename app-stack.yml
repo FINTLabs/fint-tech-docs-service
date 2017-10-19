@@ -2,66 +2,65 @@ version: '3.1'
 
 services:
   tds:
-   image: dtr.rogfk.no/fint-beta/tech-docs-service
-   ports:
-     - "9000:9000"
-   secrets:
-    - ftds_github_webhook
-   environment:
-    TZ: Europe/Oslo
-    CONFIGOR_ENV_PREFIX: TDS
-    TDS_DBHOST: db
-    TDS_PORT: 9000
-    TDS_GITHUBSECRET: /run/secrets/ftds_github_webhook
-    TDS_BUILDINTERNVAL: 30
-    TDS_WORKSPACEDIR: ./workspace
-   volumes:
-    - fint-tech-docs-gradle-home:/home/gradle
-   deploy:
-    placement:
-     constraints:
-      - node.hostname == sr-is-docker-02
-    replicas: 1
-    restart_policy:
-     condition: on-failure
-     delay: 5s
-     max_attempts: 3
-     window: 120s
-   networks:
-    - fint_tds
-   depends_on:
-    - db
+    image: dtr.rogfk.no/fint-beta/tech-docs-service
+    ports:
+      - "9000:9000"
+    secrets:
+      - ftds_github_webhook
+    environment:
+      TZ: Europe/Oslo
+      CONFIGOR_ENV_PREFIX: TDS
+      TDS_DBHOST: db
+      TDS_PORT: 9000
+      TDS_GITHUBSECRET: /run/secrets/ftds_github_webhook
+      TDS_BUILDINTERNVAL: 30
+      TDS_WORKSPACEDIR: ./workspace
+      TDS_WEBROOT: /var/local/public
+    volumes:
+      - fint-tech-docs-gradle-home:/home/gradle
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == sr-is-docker-02
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    networks:
+      - fint_tds
+    depends_on:
+      - db
 
   db:
-   image: mongo
-   environment:
-    TZ: Europe/Oslo
-   volumes:
-    - fint-tech-docs-db-volume:/data/db
-   deploy:
-    placement:
-     constraints:
-      - node.hostname == sr-is-docker-02
-    replicas: 1
-    restart_policy:
-     condition: on-failure
-     delay: 5s
-     max_attempts: 3
-     window: 120s
-   networks:
-    - fint_tds
+    image: mongo
+    environment:
+      TZ: Europe/Oslo
+    volumes:
+      - fint-tech-docs-db-volume:/data/db
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == sr-is-docker-02
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    networks:
+      - fint_tds
 
 networks:
- fint_tds:
-  driver: overlay
-  external: false
+  fint_tds:
+    driver: overlay
+    external: false
 
 volumes:
- fint-tech-docs-db-volume:
- fint-tech-docs-gradle-home:
+  fint-tech-docs-db-volume:
+  fint-tech-docs-gradle-home:
 
 secrets:
-    ftds_github_webhook:
-     external: true
-
-
+  ftds_github_webhook:
+    external: true

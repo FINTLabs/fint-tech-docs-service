@@ -15,6 +15,7 @@ services:
       TDS_GITHUBSECRET: /run/secrets/ftds_github_webhook
       TDS_BUILDINTERNVAL: 30
       TDS_WORKSPACEDIR: ./workspace
+      TDS_WEBROOT: /var/local/public
     volumes:
       - fint-tech-docs-gradle-home:/home/gradle
     depends_on:

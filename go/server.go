@@ -1,7 +1,6 @@
 package main
 
 import (
-	"os"
 	"fmt"
 	"log"
 	"net/http"
@@ -13,18 +12,17 @@ import (
 )
 
 func main() {
-	os.Stdout.WriteString("What is going on here?\n")
-	fmt.Printf("Hello?\n")
 	log.Println("Firing up all cylinders... . .. . ..")
-
+	
 	config.Dump()
 
 	util.CleanWorkspace()
 
 	startBuilder()
 
-	router := controller.SetupRouters()
-	startServer(config.Get(), router)
+	cfg := config.Get()
+	router := controller.SetupRouters(cfg.Webroot)
+	startServer(cfg, router)
 }
 
 func startBuilder() {

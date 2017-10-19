@@ -6,32 +6,34 @@ import (
 	"os"
 )
 
-func router(w http.ResponseWriter, r *http.Request) {
-	log.Printf("%+v %+v", r.Method, r.URL)
-	if r.Method == "POST" {
-		if r.URL.Path == "/webhook" {
-			GitHubWebHook(w,r)
-		} else if r.URL.Path == "/api/projects/build" {
-			BuildAllProjects(w,r)
+func router(webroot string) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Request:", r.Method, r.URL, r.Proto)
+		if r.Method == "POST" {
+			if r.URL.Path == "/webhook" {
+				GitHubWebHook(w,r)
+			} else if r.URL.Path == "/api/projects/build" {
+				BuildAllProjects(w,r)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+			}
+		} else if r.Method == "GET" {
+			if r.URL.Path == "/api/projects" {
+				GetAllProjects(w,r)
+			} else if _, err := os.Stat(webroot + r.URL.Path); err == nil {
+				log.Println("Serving file", webroot + r.URL.Path)
+				http.ServeFile(w, r, webroot + r.URL.Path)
+			} else {
+				http.ServeFile(w, r, webroot + "/index.html")
+			}
 		} else {
 			w.WriteHeader(http.StatusBadRequest)
 		}
-	} else if r.Method == "GET" {
-		if r.URL.Path == "/api/projects" {
-			GetAllProjects(w,r)
-		} else if _, err := os.Stat("./public" + r.URL.Path); err == nil {
-			log.Printf("Serving file ./public%s", r.URL.Path)
-			http.ServeFile(w, r, "./public" + r.URL.Path)
-		} else {
-			http.ServeFile(w, r, "./public/index.html")
-		}
-	} else {
-		w.WriteHeader(http.StatusBadRequest)
 	}
 }
 
 // SetupRouters ...
-func SetupRouters() http.Handler {
-	log.Println("Setting up HTTP handler...")
-	return http.HandlerFunc(router)
+func SetupRouters(webroot string) http.Handler {
+	log.Println("Setting up HTTP handler for webroot", webroot)
+	return http.HandlerFunc(router(webroot))
 }

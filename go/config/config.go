@@ -11,6 +11,7 @@ import (
 // Config ...
 type Config struct {
 	Port           string `default:"9000"`
+	Webroot        string `default:"/var/local/public"`
 	WorkspaceDir   string `default:"./workspace"`
 	BuildInternval uint64 `default:"30"`
 	DBHost         string `default:"localhost"`
@@ -35,6 +36,7 @@ func Get() Config {
 func Dump() {
 	c := Get()
 	log.Printf("Config.Port=%s", c.Port)
+	log.Printf("Config.Webroot=%s", c.Webroot)
 	log.Printf("Config.WorkspaceDir=%s", c.WorkspaceDir)
 	log.Printf("Config.DBHost=%s", c.DBHost)
 	log.Printf("Config.BuildInternval=%d", c.BuildInternval)
