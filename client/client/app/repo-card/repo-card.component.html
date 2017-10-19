@@ -1,23 +1,23 @@
-<md-card>
-    <md-card-title-group>
-        <img md-card-sm-image src="./assets/{{repo.lang}}.png">
-        <md-card-title>
+<mat-card>
+    <mat-card-title-group>
+        <img mat-card-sm-image src="./assets/{{repo.lang}}.png">
+        <mat-card-title>
             <a [routerLink]="['/', repo.lang, id]">
                 <fa name="link" fw="true"></fa>
                 {{repo.name}}
             </a>
-        </md-card-title>
-        <md-card-subtitle>Description: {{repo.description}}</md-card-subtitle>
-        <md-card-subtitle>
+        </mat-card-title>
+        <mat-card-subtitle>Description: {{repo.description}}</mat-card-subtitle>
+        <mat-card-subtitle>
             Latest: {{repo.latest}}
-            <a href="{{repo.latest_url}}" target="_blank" mdTooltip="Link to GitHub lastest release">
+            <a href="{{repo.latest_url}}" target="_blank" matTooltip="Link to GitHub lastest release">
                 <fa name="external-link" size="lg"></fa>
             </a>
-        </md-card-subtitle>
-        <md-card-subtitle>Latest created at: {{repo.latest_time}}</md-card-subtitle>
-    </md-card-title-group>
+        </mat-card-subtitle>
+        <mat-card-subtitle>Latest created at: {{repo.latest_time}}</mat-card-subtitle>
+    </mat-card-title-group>
 
-    <md-card-content>
+    <mat-card-content>
         <table>
             <tbody>
                 <tr *ngIf="repo.java_docs">
@@ -32,10 +32,10 @@
                     <th>
                         <fa name="github" size="lg"></fa>GitHub</th>
                     <td>
-                        <a href="{{repo.html}}" target="_blank" mdTooltip="Link to GitHub prosjektet">
+                        <a href="{{repo.html}}" target="_blank" matTooltip="Link to GitHub prosjektet">
                             <fa name="external-link" size="lg"></fa>
                         </a>
-                        <a href="{{repo.readme}}" target="_blank" mdTooltip="Link to Readme">
+                        <a href="{{repo.readme}}" target="_blank" matTooltip="Link to Readme">
                             <fa name="book" size="lg"></fa>
                         </a>
                     </td>
@@ -43,10 +43,10 @@
                 <tr *ngIf="repo.bintray">
                     <th>Bintray (Maven)</th>
                     <td>
-                        <a href="{{repo.maven}}" target="_blank" mdTooltip="Link to Maven repository"><img src="{{repo.maven_badge}}"></a>
+                        <a href="{{repo.maven}}" target="_blank" matTooltip="Link to Maven repository"><img src="{{repo.maven_badge}}"></a>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </md-card-content>
-</md-card>
+    </mat-card-content>
+</mat-card>

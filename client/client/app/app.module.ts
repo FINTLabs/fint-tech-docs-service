@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MdCardModule } from '@angular/material';
+import { MatCardModule, MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 
@@ -24,8 +24,10 @@ import { RepositoriesService } from './api/repositories.service';
     FormsModule,
     HttpModule,
     AngularFontAwesomeModule,
-    MdCardModule,
-    
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+
     AppRoutingModule
   ],
   providers: [RepositoriesService],
