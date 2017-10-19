@@ -24,7 +24,8 @@ func router(webroot string) func(w http.ResponseWriter, r *http.Request) {
 			} else if r.URL.Path == "/api/projects" {
 				GetAllProjects(w,r)
 			} else if strings.HasPrefix(r.URL.Path, "/javadocs/") {
-				http.ServeFile(w, r, "./")
+				log.Println("Serving file", strings.TrimPrefix(r.URL.Path, "/javadocs/"))
+				http.ServeFile(w, r, strings.TrimPrefix(r.URL.Path, "/javadocs/"))
 			} else if _, err := os.Stat(webroot + r.URL.Path); err == nil {
 				log.Println("Serving file", webroot + r.URL.Path)
 				http.ServeFile(w, r, webroot + r.URL.Path)
